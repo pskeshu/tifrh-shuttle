@@ -84,8 +84,8 @@ def main():
         </head>
         <body>
         """
-    s += '<table><caption>The next shuttle to Indus Crest is in <b>{}</b> minutes.</caption>'.format(
-        int(minutes))
+    s += '<table><caption>The next shuttle to Indus Crest is at <b>{}</b> h in <b>{}</b> minutes.</caption>'.format(
+        shuttle_ID, int(minutes))
     s += """
             <tr>
             <th>Vehicle ID</th>
