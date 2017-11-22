@@ -1,5 +1,6 @@
 from flask import Flask
 from datetime import datetime
+import subprocess
 
 # Vehicles
 # Data structure for a vehicle is
@@ -43,6 +44,11 @@ fretb_indus_weekday = {
 
 
 app = Flask(__name__)
+
+
+def get_fortune():
+    message = subprocess.run("fortune", stdout=subprocess.PIPE).stdout
+    return message.decode('utf-8')
 
 
 def time_now():
@@ -131,8 +137,8 @@ def main():
 
     for shuttle in shuttles:
         s += add_template(*shuttle)
-
-    return s + "</table></body></html>"
+    fortune = get_fortune()
+    return s + "</table></body><br>{}</html>".format(fortune)
 
 
 if __name__ == "__main__":
