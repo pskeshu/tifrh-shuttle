@@ -2,6 +2,9 @@ from flask import Flask
 from datetime import datetime
 
 # Vehicles
+# Data structure for a vehicle is
+# [vehicle_name, capacity, driver_name]
+
 car_1 = ["Car - 1", 4, "Anji Babu"]
 car_2 = ["Car - 2", 4, "Mumtaz"]
 car_3 = ["Car - 3", 4, "Bikshapathi"]
@@ -12,7 +15,13 @@ bus = ["Bus", 22, "Bus Driver"]
 bus_rd = ["Bus (via Ratnadeep)", 22, "Bus Driver"]
 
 
-# Timings
+# Services
+# The data structure for the service is
+# {
+#   "HHSS" : [vehicle1],
+#   "hhss" : [vehicle1, vehicle2]
+# }
+
 indus_fretb_weekday = {
     "0745": [car_4],
     "0800": [bus, winger_1],
@@ -69,7 +78,7 @@ def next_shuttle(schedule_dict):
     # Index for the shuttle that is next in line.
     idx = all_shuttles_seconds.index(remaining_time_seconds)
 
-    # Shuttle index from the dictionary
+    # Shuttle index from the service dictionary
     shuttle = timings[idx]
     return remaining_time_seconds, shuttle
 
