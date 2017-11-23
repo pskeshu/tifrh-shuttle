@@ -42,6 +42,45 @@ fretb_indus_weekday = {
     "0200": [car_4]
 }
 
+fretb_indus_sunday = {
+    "1400": [bus, winger_1],
+    "1500": [bus, winger_1],
+    "1600": [bus, winger_1],
+    "1800": [bus, winger_1]
+}
+
+aparna_fretb_weekday = {
+    "0700": [car_4],
+    "0740": [car_1],
+    "0800": [car_3],
+    "0820": [car_2],
+    "0840": [winger_2]
+}
+
+fretb_aparna_weekday = {
+    "1730": [car_1, car_2],
+    "1815": [winger_1],
+    "1900": [winger_2],
+    "1915": [car_2],
+    "1940": [car_1],
+    "2000": [car_3]
+}
+
+fretb_aparna_saturday = {
+    "1730": [car_2],
+    "1815": [winger_2],
+    "1900": [winger_2],
+    "1930": [car_2],
+    "2000": [car_3]
+}
+
+fretb_aparna_sunday = {
+    "1730": [car_1],
+    "1815": [car_1],
+    "1900": [car_1],
+    "1940": [car_1],
+}
+
 
 app = Flask(__name__)
 
