@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% block body %}
+<html>
+    <head>
+        <style>
+            table, th, td {
+                            border: 1px solid black;
+                          }
+        </style>
+    </head>
+    <body>
+        <table>
+            <caption>The next shuttle to Indus Crest is at <b> {{ shuttle }} </b> in <b> {{ time_left }}</b> minutes.</caption>
+            <tr>
+                <th>Vehicle ID</th>
+                <th>Capacity</th>  
+                <th>Driver</th>    
+            </tr>
+            
+            {% for shuttle in shuttles %}
+            <tr>
+                <td>{{ shuttle[0] }}</td>
+                <td>{{ shuttle[1] }}</td>  
+                <td>{{ shuttle[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {{ fortune }}
+    </body>
+    <br>
+{% endblock %}
+</html>

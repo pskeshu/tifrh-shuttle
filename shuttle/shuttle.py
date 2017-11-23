@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from datetime import datetime
 import subprocess
 
@@ -166,57 +166,18 @@ def next_shuttle(schedule_dict):
     return remaining_time_seconds, shuttle
 
 
-def add_template(vehicle_ID, capacity, driver):
-    """HTML string that creates a table with vehicle ID, capacity of the
-    vehicle and the name of the driver."""
-    template = """
-    <tr>
-    <td>{}</td>
-    <td>{}</td>  
-    <td>{}</td>    
-    </tr>
-    """
-    return template.format(vehicle_ID, capacity, driver)
-
-
 @app.route('/')
 def main():
     remaining_time_seconds, shuttle_ID = next_shuttle(fretb_indus_weekday)
-
     minutes = int(remaining_time_seconds/60)
 
     shuttles = fretb_indus_weekday[shuttle_ID]
-
-    s = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-        </style>
-        </head>
-        <body>
-        """
-
-    s += """<table>
-            <caption>The next shuttle to Indus Crest is at 
-            <b>{}</b> h in <b>{}</b> minutes.
-            </caption>""".format(shuttle_ID, minutes)
-    s += """
-            <tr>
-            <th>Vehicle ID</th>
-            <th>Capacity</th>  
-            <th>Driver</th>    
-            </tr>
-        """
-
-    for shuttle in shuttles:
-        s += add_template(*shuttle)
-    fortune = get_fortune()
-    return s + "</table></body><br>{}</html>".format(fortune)
+    return render_template("home.html",
+                           shuttle=shuttle_ID,
+                           time_left=minutes,
+                           fortune=get_fortune(),
+                           shuttles=shuttles)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=8080)
