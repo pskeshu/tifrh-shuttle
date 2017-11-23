@@ -42,11 +42,37 @@ fretb_indus_weekday = {
     "0200": [car_4]
 }
 
+indus_fretb_sunday = {
+    "0840": [bus, car_1],
+    "0930": [bus, winger_1],
+    "1045": [bus, winger_1],
+    "1215": [bus, winger_1]
+}
+
 fretb_indus_sunday = {
     "1400": [bus, winger_1],
     "1500": [bus, winger_1],
     "1600": [bus, winger_1],
     "1800": [bus, winger_1]
+}
+
+indus_fretb_saturday = {
+    "0745": [car_4],
+    "0800": [bus, winger_1],
+    "0845": [bus, winger_1],
+    "0930": [bus],
+    "1100": [winger_2]
+}
+
+fretb_indus_saturday = {
+    "1830": [bus_rd],
+    "2000": [bus],
+    "2100": [bus, winger_1],
+    "2200": [winger_2],
+    "2300": [car_4],
+    "0000": [car_4],
+    "0100": [car_4],
+    "0200": [car_4]
 }
 
 aparna_fretb_weekday = {
@@ -66,6 +92,13 @@ fretb_aparna_weekday = {
     "2000": [car_3]
 }
 
+aparna_fretb_saturday = {
+    "0700": [car_4],
+    "0740": [car_2],
+    "0800": [car_3],
+    "0840": [winger_2]
+}
+
 fretb_aparna_saturday = {
     "1730": [car_2],
     "1815": [winger_2],
@@ -74,13 +107,18 @@ fretb_aparna_saturday = {
     "2000": [car_3]
 }
 
+aparna_fretb_sunday = {
+    "0740": [car_4],
+    "0800": [car_1],
+    "0840": [winger_2]
+}
+
 fretb_aparna_sunday = {
     "1730": [car_1],
     "1815": [car_1],
     "1900": [car_1],
     "1940": [car_1],
 }
-
 
 app = Flask(__name__)
 
