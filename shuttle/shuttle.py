@@ -168,15 +168,25 @@ def next_shuttle(schedule_dict):
 
 @app.route('/')
 def main():
-    remaining_time_seconds, shuttle_ID = next_shuttle(fretb_indus_weekday)
-    minutes = int(remaining_time_seconds/60)
+    time_indus, id_indus = next_shuttle(fretb_indus_weekday)
 
-    shuttles = fretb_indus_weekday[shuttle_ID]
+    time_aparna, id_aparna = next_shuttle(fretb_aparna_weekday)
+
+    minutes_indus = int(time_indus/60)
+    minutes_aparna = int(time_aparna/60)
+
+    shuttles_indus = fretb_indus_weekday[id_indus]
+    shuttles_aparna = fretb_aparna_weekday[id_aparna]
+
     return render_template("home.html",
-                           shuttle=shuttle_ID,
-                           time_left=minutes,
-                           fortune=get_fortune(),
-                           shuttles=shuttles)
+                           shuttle_time_indus=id_indus,
+                           time_left_indus=minutes_indus,
+                           shuttles_indus=shuttles_indus,
+                           shuttle_time_aparna=id_aparna,
+                           time_left_aparna=minutes_aparna,
+                           shuttles_aparna=shuttles_aparna,
+                           fortune=get_fortune()
+                           )
 
 
 if __name__ == "__main__":
