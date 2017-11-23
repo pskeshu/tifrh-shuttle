@@ -11,10 +11,10 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
   <h2>To Indus Crest in {{ time_left_indus }} minutes</h2>
   <p>The next shuttle is at <b>{{ shuttle_time_indus }}</b> </p>            
-  <table class="table table-hover">
+  <table class="table table-condensed table-border table-hover">
     <thead>
       <tr>
         <th>Vehicle</th>
@@ -32,12 +32,10 @@
       {% endfor %}
     </tbody>
   </table>
-</div>
 
-<div class="container">
   <h2>To Aparna in {{ time_left_aparna }} minutes</h2>
   <p>The next shuttle is at <b>{{ shuttle_time_aparna }}</b> </p>            
-  <table class="table table-hover">
+  <table class="table table-condensed table-border table-hover">
     <thead>
       <tr>
         <th>Vehicle</th>
@@ -55,6 +53,7 @@
       {% endfor %}
     </tbody>
   </table>
+  <hr>
   <p>{{ fortune }}</p>
 </div>
 
