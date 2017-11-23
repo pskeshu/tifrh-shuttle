@@ -1,50 +1,40 @@
 <!DOCTYPE html>
 {% block body %}
-<html>
-    <head>
-        <style>
-            table, th, td {
-                            border: 1px solid black;
-                          }
-        </style>
-    </head>
-    <body>
-        <table>
-            <caption>The next shuttle to Indus Crest is at <b> {{ shuttle_time_indus }} </b> in <b> {{ time_left_indus }}</b> minutes.</caption>
-            <tr>
-                <th>Vehicle ID</th>
-                <th>Capacity</th>  
-                <th>Driver</th>    
-            </tr>
-            
-            {% for shuttle in shuttles_indus %}
-            <tr>
-                <td>{{ shuttle[0] }}</td>
-                <td>{{ shuttle[1] }}</td>  
-                <td>{{ shuttle[2] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+<html lang="en">
+<head>
+  <title>TIFR Hyderabad Shuttle Timings</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-        <table>
-            <caption>The next shuttle to Aparna is at <b> {{ shuttle_time_aparna }} </b> in <b> {{ time_left_aparna }}</b> minutes.</caption>
-            <tr>
-                <th>Vehicle ID</th>
-                <th>Capacity</th>  
-                <th>Driver</th>    
-            </tr>
-            
-            {% for shuttle in shuttles_aparna %}
-            <tr>
-                <td>{{ shuttle[0] }}</td>
-                <td>{{ shuttle[1] }}</td>  
-                <td>{{ shuttle[2] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+<div class="container">
+  <h2>To Indus Crest</h2>
+  <p>The next shuttle is at {{ shuttle_time_indus }} which is in {{ time_left_indus }} minutes</p>            
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Vehicle</th>
+        <th>Capacity</th>
+        <th>Driver</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shuttle in shuttles_indus %}  
+      <tr>
+        <td>{{ shuttle[0] }}</td>
+        <td>{{ shuttle[1] }}</td>
+        <td>{{ shuttle[2] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-    {{ fortune }}
-    </body>
-    <br>
-{% endblock %}
+</body>
 </html>
+
+{% endblock %}
