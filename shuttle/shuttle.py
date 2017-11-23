@@ -2,6 +2,9 @@ from flask import Flask, render_template
 from datetime import datetime
 import subprocess
 
+# The schedule is from
+last_update = "16 November 2017"
+
 # Vehicles
 # Data structure for a vehicle is
 # [vehicle_name, capacity, driver_name]
@@ -185,7 +188,8 @@ def main():
                            shuttle_time_aparna=id_aparna,
                            time_left_aparna=minutes_aparna,
                            shuttles_aparna=shuttles_aparna,
-                           fortune=get_fortune()
+                           fortune=get_fortune(),
+                           last_update=last_update
                            )
 
 
