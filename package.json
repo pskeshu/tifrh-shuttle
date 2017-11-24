@@ -1,0 +1,11 @@
+me": "tifrh-shuttle",
+  "description": "Shows the next shuttle's timing at TIFR Hyderabad",
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/pskeshu/tifrh-shuttle.git"
+  }
+  "dependencies": {
+      "flask" : "pallets/flask.git",
+      "jinja" : "pallets/jinja.git"
+  }
+}
