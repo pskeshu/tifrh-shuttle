@@ -171,9 +171,21 @@ def next_shuttle(schedule_dict):
 
 @app.route('/')
 def main():
-    time_indus, id_indus = next_shuttle(fretb_indus_weekday)
+    
+    now = datetime.now()
+    day_of_week = now.weekday()
 
-    time_aparna, id_aparna = next_shuttle(fretb_aparna_weekday)
+    print(day_of_week)
+
+    if ( day_of_week <= 4 ) :
+        time_indus, id_indus = next_shuttle(fretb_indus_weekday)
+        time_aparna, id_aparna = next_shuttle(fretb_aparna_weekday)
+    elif ( day_of_week == 5 ) :
+        time_indus, id_indus = next_shuttle(fretb_indus_saturday)
+        time_aparna, id_aparna = next_shuttle(fretb_aparna_saturday)
+    else :
+        time_indus, id_indus = next_shuttle(fretb_indus_sunday)
+        time_aparna, id_aparna = next_shuttle(fretb_aparna_sunday)
 
     minutes_indus = int(time_indus/60)
     minutes_aparna = int(time_aparna/60)
