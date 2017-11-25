@@ -55,8 +55,6 @@ def main():
     now = datetime.now()
     day_of_week = now.weekday()
 
-    print(day_of_week)
-
     if ( day_of_week <= 4 ) :
         fretb_indus = schedule.fretb_indus_weekday
         fretb_aparna = schedule.fretb_aparna_weekday
