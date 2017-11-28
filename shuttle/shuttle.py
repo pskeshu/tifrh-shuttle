@@ -50,9 +50,7 @@ def next_shuttle(schedule_dict):
     return remaining_time_seconds, shuttle
 
 
-@app.route('/')
-def main():
-
+def fetch_shuttle_schedule():
     now = datetime.datetime.now()
     day_of_week = now.weekday()
 
@@ -65,6 +63,13 @@ def main():
     else:
         fretb_indus = schedule.fretb_indus_sunday
         fretb_aparna = schedule.fretb_aparna_sunday
+
+    return fretb_indus, fretb_aparna
+
+
+@app.route('/')
+def main():
+    fretb_indus, fretb_aparna = fetch_shuttle_schedule()
 
     time_indus, id_indus = next_shuttle(fretb_indus)
     time_aparna, id_aparna = next_shuttle(fretb_aparna)
@@ -85,7 +90,6 @@ def main():
                            fortune=get_fortune(),
                            last_update=schedule.last_update
                            )
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
