@@ -64,12 +64,22 @@ def fetch_shuttle_schedule():
         fretb_indus = schedule.fretb_indus_sunday
         fretb_aparna = schedule.fretb_aparna_sunday
 
-    return fretb_indus, fretb_aparna
+    if (day_of_week <= 4):
+        indus_fretb = schedule.indus_fretb_weekday
+        aparna_fretb = schedule.aparna_fretb_weekday
+    elif (day_of_week == 5):
+        indus_fretb = schedule.indus_fretb_saturday
+        aparna_fretb = schedule.aparna_fretb_saturday
+    else:
+        indus_fretb = schedule.indus_fretb_sunday
+        aparna_fretb = schedule.aparna_fretb_sunday
+    
+    return fretb_indus, indus_fretb, fretb_aparna, aparna_fretb
 
 
 @app.route('/')
 def main():
-    fretb_indus, fretb_aparna = fetch_shuttle_schedule()
+    fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = fetch_shuttle_schedule()
 
     time_indus, id_indus = next_shuttle(fretb_indus)
     time_aparna, id_aparna = next_shuttle(fretb_aparna)
