@@ -11,50 +11,35 @@ def get_fortune():
     return message.decode('utf-8')
 
 
-def smart_datetime(time_string, tomorrow=False):
+def smart_timeleft(time_string, tomorrow=False):
+	"""This function takes in a time string, and calculates the time left
+	for that time string. If the time encoded in the time string is passed,
+	the function will calculate the time left for that with the tomorrow
+	argument being true."""
     if tomorrow is False:
         day = datetime.date.today()
     else:
-        day = datetime.date.today()
-        day = day.timedelta(days=1)
+        day = datetime.date.today() + datetime.timedelta(days=1)
     date_string = "{}-{}".format(str(day), time_string)
-
     td_obj = datetime.datetime.strptime(date_string, "%Y-%m-%d-%H%M")
     remaining_time = (td_obj - datetime.datetime.now()).total_seconds()
     if remaining_time > 0:
         return remaining_time
     else:
-        return smart_datetime(time_string, tomorrow=True)
-
-
-def time_left(schedule_list):
-    """Take a list of time. Convert the ones that are tomorrow appropriately.
-    """
-    dt_objects = [(smart_datetime(_))
-                  for _ in schedule_list]
-    return dt_objects
+        return smart_timeleft(time_string, tomorrow=True)
 
 
 def next_shuttle(schedule_dict):
-    """Based on the dictionary passed to this function, and the current time,
+    """Based on the dictionary passed to this function,
     this function will return the time remaining for the next shuttle in
     seconds, and the shuttle index from the dictionary."""
 
     timings = list(schedule_dict.keys())  # Shuttle timings
 
-    # For each shuttle: shuttle time - current time
-    # This is a datetime object.
-    all_shuttles_datetime = time_left(timings)
-    exit()
+    # Time left for various shuttles in seconds.
+    all_shuttles_seconds = [(smart_timeleft(_)) for _ in timings]
 
-    # For each shuttle: the time left in seconds.
-    all_shuttles_seconds = [_.total_seconds() for _ in all_shuttles_datetime]
-
-    # The early morning shuttles that are there for the next day
-    # confuses the program, as datatime.strptime by default assumes
-    # date as 1990/01/01. The shuttles that are technically tomorrow
-    # (midnight onwards) as assumed as shuttles today.
-    # Needs a better hack than ignoring negative time.
+    # Find the next shuttle among all the shuttles.
     remaining_time_seconds = min(_ for _ in all_shuttles_seconds if _ > 0)
 
     # Index for the shuttle that is next in line.
@@ -90,18 +75,17 @@ def main():
     shuttles_indus = fretb_indus[id_indus]
     shuttles_aparna = fretb_aparna[id_aparna]
 
-    # return render_template("home.html",
-    #                       shuttle_time_indus=id_indus,
-    #                       time_left_indus=minutes_indus,
-    #                       shuttles_indus=shuttles_indus,
-    #                       shuttle_time_aparna=id_aparna,
-    #                       time_left_aparna=minutes_aparna,
-    #                       shuttles_aparna=shuttles_aparna,
-    #                       fortune=get_fortune(),
-    #                       last_update=schedule.last_update
-    #                       )
+    return render_template("home.html",
+                           shuttle_time_indus=id_indus,
+                           time_left_indus=minutes_indus,
+                           shuttles_indus=shuttles_indus,
+                           shuttle_time_aparna=id_aparna,
+                           time_left_aparna=minutes_aparna,
+                           shuttles_aparna=shuttles_aparna,
+                           fortune=get_fortune(),
+                           last_update=schedule.last_update
+                           )
 
 
 if __name__ == "__main__":
-    #app.run(host="0.0.0.0", port=80)
-    main()
+    app.run(host="0.0.0.0", port=80)
