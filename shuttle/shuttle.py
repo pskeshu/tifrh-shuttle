@@ -12,10 +12,10 @@ def get_fortune():
 
 
 def smart_timeleft(time_string, tomorrow=False):
-	"""This function takes in a time string, and calculates the time left
-	for that time string. If the time encoded in the time string is passed,
-	the function will calculate the time left for that with the tomorrow
-	argument being true."""
+    """This function takes in a time string, and calculates the time left
+    for that time string. If the time encoded in the time string is passed,
+    the function will calculate the time left for that with the tomorrow
+    argument being true."""
     if tomorrow is False:
         day = datetime.date.today()
     else:
