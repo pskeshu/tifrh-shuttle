@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from datetime import datetime
+import datetime
 import subprocess
 import schedule
 
@@ -11,12 +11,28 @@ def get_fortune():
     return message.decode('utf-8')
 
 
-def time_now():
-    """Get the current time, and return the hours and minutes in the datetime
-    format."""
-    right_now = datetime.now()
-    hhss = "{}{}".format(right_now.hour, right_now.minute)
-    return datetime.strptime(hhss, '%H%M')
+def smart_datetime(time_string, tomorrow=False):
+    if tomorrow is False:
+        day = datetime.date.today()
+    else:
+        day = datetime.date.today()
+        day = day.timedelta(days=1)
+    date_string = "{}-{}".format(str(day), time_string)
+
+    td_obj = datetime.datetime.strptime(date_string, "%Y-%m-%d-%H%M")
+    remaining_time = (td_obj - datetime.datetime.now()).total_seconds()
+    if remaining_time > 0:
+        return remaining_time
+    else:
+        return smart_datetime(time_string, tomorrow=True)
+
+
+def time_left(schedule_list):
+    """Take a list of time. Convert the ones that are tomorrow appropriately.
+    """
+    dt_objects = [(smart_datetime(_))
+                  for _ in schedule_list]
+    return dt_objects
 
 
 def next_shuttle(schedule_dict):
@@ -28,8 +44,8 @@ def next_shuttle(schedule_dict):
 
     # For each shuttle: shuttle time - current time
     # This is a datetime object.
-    all_shuttles_datetime = [datetime.strptime(_, '%H%M') - time_now()
-                             for _ in timings]
+    all_shuttles_datetime = time_left(timings)
+    exit()
 
     # For each shuttle: the time left in seconds.
     all_shuttles_seconds = [_.total_seconds() for _ in all_shuttles_datetime]
@@ -52,39 +68,40 @@ def next_shuttle(schedule_dict):
 @app.route('/')
 def main():
 
-    now = datetime.now()
+    now = datetime.datetime.now()
     day_of_week = now.weekday()
 
-    if ( day_of_week <= 4 ) :
+    if (day_of_week <= 4):
         fretb_indus = schedule.fretb_indus_weekday
         fretb_aparna = schedule.fretb_aparna_weekday
-    elif ( day_of_week == 5 ) :
+    elif (day_of_week == 5):
         fretb_indus = schedule.fretb_indus_saturday
         fretb_aparna = schedule.fretb_aparna_saturday
-    else :
+    else:
         fretb_indus = schedule.fretb_indus_sunday
         fretb_aparna = schedule.fretb_aparna_sunday
 
     time_indus, id_indus = next_shuttle(fretb_indus)
     time_aparna, id_aparna = next_shuttle(fretb_aparna)
-    
+
     minutes_indus = int(time_indus/60)
     minutes_aparna = int(time_aparna/60)
 
     shuttles_indus = fretb_indus[id_indus]
     shuttles_aparna = fretb_aparna[id_aparna]
 
-    return render_template("home.html",
-                           shuttle_time_indus=id_indus,
-                           time_left_indus=minutes_indus,
-                           shuttles_indus=shuttles_indus,
-                           shuttle_time_aparna=id_aparna,
-                           time_left_aparna=minutes_aparna,
-                           shuttles_aparna=shuttles_aparna,
-                           fortune=get_fortune(),
-                           last_update=schedule.last_update
-                           )
+    # return render_template("home.html",
+    #                       shuttle_time_indus=id_indus,
+    #                       time_left_indus=minutes_indus,
+    #                       shuttles_indus=shuttles_indus,
+    #                       shuttle_time_aparna=id_aparna,
+    #                       time_left_aparna=minutes_aparna,
+    #                       shuttles_aparna=shuttles_aparna,
+    #                       fortune=get_fortune(),
+    #                       last_update=schedule.last_update
+    #                       )
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    #app.run(host="0.0.0.0", port=80)
+    main()
