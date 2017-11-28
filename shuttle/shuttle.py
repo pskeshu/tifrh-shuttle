@@ -57,23 +57,19 @@ def fetch_shuttle_schedule():
     if (day_of_week <= 4):
         fretb_indus = schedule.fretb_indus_weekday
         fretb_aparna = schedule.fretb_aparna_weekday
-    elif (day_of_week == 5):
-        fretb_indus = schedule.fretb_indus_saturday
-        fretb_aparna = schedule.fretb_aparna_saturday
-    else:
-        fretb_indus = schedule.fretb_indus_sunday
-        fretb_aparna = schedule.fretb_aparna_sunday
-
-    if (day_of_week <= 4):
         indus_fretb = schedule.indus_fretb_weekday
         aparna_fretb = schedule.aparna_fretb_weekday
     elif (day_of_week == 5):
+        fretb_indus = schedule.fretb_indus_saturday
+        fretb_aparna = schedule.fretb_aparna_saturday
         indus_fretb = schedule.indus_fretb_saturday
         aparna_fretb = schedule.aparna_fretb_saturday
     else:
+        fretb_indus = schedule.fretb_indus_sunday
+        fretb_aparna = schedule.fretb_aparna_sunday
         indus_fretb = schedule.indus_fretb_sunday
         aparna_fretb = schedule.aparna_fretb_sunday
-    
+
     return fretb_indus, indus_fretb, fretb_aparna, aparna_fretb
 
 
