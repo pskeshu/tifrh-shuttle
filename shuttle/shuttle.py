@@ -35,24 +35,6 @@ def smart_timeleft(time_string, tomorrow=False):
         return smart_timeleft(time_string, tomorrow=True)
 
 
-def smart_timeleft(time_string, tomorrow=False):
-    """This function takes in a time string, and calculates the time left
-    for that time string. If the time encoded in the time string is passed,
-    the function will calculate the time left for that with the tomorrow
-    argument being true."""
-    if tomorrow is False:
-        day = datetime.date.today()
-    else:
-        day = datetime.date.today() + datetime.timedelta(days=1)
-    date_string = "{}-{}".format(str(day), time_string)
-    td_obj = datetime.datetime.strptime(date_string, "%Y-%m-%d-%H%M")
-    remaining_time = (td_obj - datetime.datetime.now()).total_seconds()
-    if remaining_time > 0:
-        return remaining_time
-    else:
-        return smart_timeleft(time_string, tomorrow=True)
-
-
 def next_shuttle(schedule_dict):
     """Based on the dictionary passed to this function,
     this function will return the time remaining for the next shuttle in
