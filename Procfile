@@ -1,1 +1,1 @@
-web gunicorn shuttle.shuttle
+web gunicorn app:app
