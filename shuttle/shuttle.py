@@ -1,14 +1,38 @@
 from flask import Flask, render_template
 import datetime
 import subprocess
-import schedule
+import pytz
+from shuttle import schedule
 
+tz = pytz.timezone("Asia/Kolkata")
 app = Flask(__name__)
 
 
 def get_fortune():
-    message = subprocess.run("fortune", stdout=subprocess.PIPE).stdout
-    return message.decode('utf-8')
+    try:
+        message = subprocess.run("fortune", stdout=subprocess.PIPE).stdout
+        return message.decode('utf-8')
+    except:
+        return "The Universe is very big."
+
+def smart_timeleft(time_string, tomorrow=False):
+    """This function takes in a time string, and calculates the time left
+    for that time string. If the time encoded in the time string is passed,
+    the function will calculate the time left for that with the tomorrow
+    argument being true."""
+    if tomorrow is False:
+        day = datetime.datetime.now(tz=tz).date()
+    else:
+        day = datetime.datetime.now(tz=tz).date()
+        day += datetime.timedelta(days=1)
+    date_string = "{}-{}-GMT+0530".format(str(day), time_string)
+    td_obj = datetime.datetime.strptime(date_string, 
+        "%Y-%m-%d-%H%M-GMT%z")
+    remaining_time = (td_obj - datetime.datetime.now(tz)).total_seconds()
+    if remaining_time > 0:
+        return remaining_time
+    else:
+        return smart_timeleft(time_string, tomorrow=True)
 
 
 def smart_timeleft(time_string, tomorrow=False):
@@ -51,7 +75,7 @@ def next_shuttle(schedule_dict):
 
 
 def fetch_shuttle_schedule():
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(tz)
     day_of_week = now.weekday()
 
     if (day_of_week <= 4):
@@ -96,6 +120,3 @@ def main():
                            fortune=get_fortune(),
                            last_update=schedule.last_update
                            )
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
