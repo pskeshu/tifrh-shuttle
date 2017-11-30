@@ -13,7 +13,8 @@ def get_fortune():
         message = subprocess.run("fortune", stdout=subprocess.PIPE).stdout
         return message.decode('utf-8')
     except:
-        return "The Universe is very big."
+        return "The universe is a pretty big place.\
+        If it's just us, seems like an awful waste of space. -- Carl Sagan"
 
 
 def smart_timeleft(time_string, tomorrow=False):
