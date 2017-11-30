@@ -1,0 +1,9 @@
+.navbar-static-bottom {
+    border-radius: 0;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    margin: 20px 0 0;
+}
