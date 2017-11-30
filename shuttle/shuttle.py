@@ -84,30 +84,50 @@ def fetch_shuttle_schedule():
 def main():
     fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = fetch_shuttle_schedule()
 
-    time_indus, id_indus = next_shuttle(fretb_indus)
-    time_aparna, id_aparna = next_shuttle(fretb_aparna)
+    time_fretb_IC, id_fretb_IC = next_shuttle(fretb_indus)
+    time_fretb_AS, id_fretb_AS = next_shuttle(fretb_aparna)
+    time_IC_fretb, id_IC_fretb = next_shuttle(indus_fretb)
+    time_AS_fretb, id_AS_fretb = next_shuttle(aparna_fretb)
 
-    minutes_indus = int(time_indus/60)
-    minutes_aparna = int(time_aparna/60)
+    minutes_fretb_IC = int(time_fretb_IC/60)
+    minutes_fretb_AS = int(time_fretb_AS/60)
+    minutes_IC_fretb = int(time_IC_fretb/60)
+    minutes_AS_fretb = int(time_AS_fretb/60)
 
-    shuttles_indus = fretb_indus[id_indus]
-    shuttles_aparna = fretb_aparna[id_aparna]
+    shuttles_fretb_IC = fretb_indus[id_fretb_IC]
+    shuttles_fretb_AS = fretb_aparna[id_fretb_AS]
+    shuttles_IC_fretb = indus_fretb[id_IC_fretb]
+    shuttles_AS_fretb = aparna_fretb[id_AS_fretb]
 
     fretb_indus_info = {
-        "shuttle_time": id_indus,
-        "minutes": minutes_indus,
-        "shuttles": shuttles_indus
+        "shuttle_time": id_fretb_IC,
+        "minutes": minutes_fretb_IC,
+        "shuttles": shuttles_fretb_IC
     }
 
     fretb_aparna_info = {
-        "shuttle_time": id_aparna,
-        "minutes": minutes_aparna,
-        "shuttles": shuttles_aparna
+        "shuttle_time": id_fretb_AS,
+        "minutes": minutes_fretb_AS,
+        "shuttles": shuttles_fretb_AS
+    }
+
+    indus_fretb_info = {
+        "shuttle_time": id_IC_fretb,
+        "minutes": minutes_IC_fretb,
+        "shuttles": shuttles_IC_fretb
+    }
+
+    aparna_fretb_info = {
+        "shuttle_time": id_AS_fretb,
+        "minutes": minutes_AS_fretb,
+        "shuttles": shuttles_AS_fretb
     }
 
     return render_template("home.html",
                            fretb_indus_info=fretb_indus_info,
                            fretb_aparna_info=fretb_aparna_info,
+                           indus_fretb_info=indus_fretb_info,
+                           aparna_fretb_info=aparna_fretb_info,
                            fortune=get_fortune(),
                            last_update=schedule.last_update
                            )
