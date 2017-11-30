@@ -93,13 +93,21 @@ def main():
     shuttles_indus = fretb_indus[id_indus]
     shuttles_aparna = fretb_aparna[id_aparna]
 
+    fretb_indus_info = {
+        "shuttle_time": id_indus,
+        "minutes": minutes_indus,
+        "shuttles": shuttles_indus
+    }
+
+    fretb_aparna_info = {
+        "shuttle_time": id_aparna,
+        "minutes": minutes_aparna,
+        "shuttles": shuttles_aparna
+    }
+
     return render_template("home.html",
-                           shuttle_time_indus=id_indus,
-                           time_left_indus=minutes_indus,
-                           shuttles_indus=shuttles_indus,
-                           shuttle_time_aparna=id_aparna,
-                           time_left_aparna=minutes_aparna,
-                           shuttles_aparna=shuttles_aparna,
+                           fretb_indus_info=fretb_indus_info,
+                           fretb_aparna_info=fretb_aparna_info,
                            fortune=get_fortune(),
                            last_update=schedule.last_update
                            )

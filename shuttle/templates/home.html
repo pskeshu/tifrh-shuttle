@@ -13,8 +13,8 @@
 <body>
 
 <div class="container-fluid">
-  <h2>To Indus Crest in {{ time_left_indus }} minutes</h2>
-  <p>The next shuttle is at <b>{{ shuttle_time_indus }}</b> </p>            
+  <h2>To Indus Crest in {{ fretb_indus_info["minutes"] }} minutes</h2>
+  <p>The next shuttle is at <b>{{ fretb_indus_info["shuttle_time"] }}</b> </p>            
   <table class="table table-condensed table-border table-hover">
     <thead>
       <tr>
@@ -24,7 +24,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for shuttle in shuttles_indus %}  
+      {% for shuttle in fretb_indus_info["shuttles"] %}  
       <tr>
         <td>{{ shuttle[0] }}</td>
         <td>{{ shuttle[1] }}</td>
@@ -34,8 +34,8 @@
     </tbody>
   </table>
 
-  <h2>To Aparna in {{ time_left_aparna }} minutes</h2>
-  <p>The next shuttle is at <b>{{ shuttle_time_aparna }}</b> </p>            
+  <h2>To Aparna in {{ fretb_aparna_info["minutes"] }} minutes</h2>
+  <p>The next shuttle is at <b>{{ fretb_aparna_info["shuttle_time"] }}</b> </p>            
   <table class="table table-condensed table-border table-hover">
     <thead>
       <tr>
@@ -45,7 +45,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for shuttle in shuttles_aparna %}  
+      {% for shuttle in fretb_aparna_info["shuttles"] %}  
       <tr>
         <td>{{ shuttle[0] }}</td>
         <td>{{ shuttle[1] }}</td>
