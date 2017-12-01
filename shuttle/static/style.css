@@ -11,3 +11,7 @@
 .panel-heading {
    cursor: pointer;
 }
+
+table {
+    table-layout: fixed;
+}
