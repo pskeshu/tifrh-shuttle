@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
         <ul class="list-group">
           <li class="list-group-item">
             <h3>Indus Crest in {{ fretb_indus_info["minutes"] }} minutes</h3>
-            <p>The next shuttle to Indus Crest from FReT-B is at <b>{{ fretb_indus_info["shuttle_time"] }}</b> </p>            
+            <p>The next shuttle to Indus Crest from FReT-B is at <b>{{ fretb_indus_info["shuttle_time"] }}</b> </p>
             <table class="table table-condensed table-border table-hover">
               <thead>
                 <tr>
@@ -35,7 +35,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for shuttle in fretb_indus_info["shuttles"] %}  
+                {% for shuttle in fretb_indus_info["shuttles"] %}
                 <tr>
                   <td>{{ shuttle[0] }}</td>
                   <td>{{ shuttle[1] }}</td>
@@ -47,7 +47,7 @@
           </li>
           <li class="list-group-item">
             <h3>FReT-B in {{ indus_fretb_info["minutes"] }} minutes</h3>
-            <p>The next shuttle to FReT-B from Indus Crest is at <b>{{ indus_fretb_info["shuttle_time"] }}</b> </p>            
+            <p>The next shuttle to FReT-B from Indus Crest is at <b>{{ indus_fretb_info["shuttle_time"] }}</b> </p>
             <table class="table table-condensed table-border table-hover">
               <thead>
                 <tr>
@@ -57,7 +57,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for shuttle in indus_fretb_info["shuttles"] %}  
+                {% for shuttle in indus_fretb_info["shuttles"] %}
                 <tr>
                   <td>{{ shuttle[0] }}</td>
                   <td>{{ shuttle[1] }}</td>
@@ -81,7 +81,7 @@
         <ul class="list-group">
           <li class="list-group-item">
             <h3>Aparna Sarovar in {{ fretb_aparna_info["minutes"] }} minutes</h3>
-            <p>The next shuttle to Aparna Sarovar from FReT-B is at <b>{{ fretb_aparna_info["shuttle_time"] }}</b> </p>        
+            <p>The next shuttle to Aparna Sarovar from FReT-B is at <b>{{ fretb_aparna_info["shuttle_time"] }}</b> </p>
             <table class="table table-condensed table-border table-hover">
               <thead>
                 <tr>
@@ -91,7 +91,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for shuttle in fretb_aparna_info["shuttles"] %}  
+                {% for shuttle in fretb_aparna_info["shuttles"] %}
                 <tr>
                   <td>{{ shuttle[0] }}</td>
                   <td>{{ shuttle[1] }}</td>
@@ -103,7 +103,7 @@
           </li>
           <li class="list-group-item">
             <h3>FReT-B in {{ aparna_fretb_info["minutes"] }} minutes</h3>
-            <p>The next shuttle to FReT-B from Aparna Sarovar is at <b>{{ aparna_fretb_info["shuttle_time"] }}</b> </p>         
+            <p>The next shuttle to FReT-B from Aparna Sarovar is at <b>{{ aparna_fretb_info["shuttle_time"] }}</b> </p>
             <table class="table table-condensed table-border table-hover">
               <thead>
                 <tr>
@@ -113,7 +113,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for shuttle in aparna_fretb_info["shuttles"] %}  
+                {% for shuttle in aparna_fretb_info["shuttles"] %}
                 <tr>
                   <td>{{ shuttle[0] }}</td>
                   <td>{{ shuttle[1] }}</td>
@@ -127,13 +127,16 @@
       </div>
     </div>
   <hr>
-  <p>{{ fortune }}</p>
+  <p class="fortune">{{ fortune }}</p>
 </div>
 
-<div class="container-fluid navbar navbar-default navbar-static-bottom">
-    <span style="float:left;">Shuttle timings last updated on: <b>{{ last_update }}</b></span>
-    <span style="float:right">To report any issues, request changes or additional functionality, go here:  <a href="https://github.com/pskeshu/tifrh-shuttle/issues" target="_blank">https://github.com/pskeshu/tifrh-shuttle/issues</a></span>
-</div>
+
+<footer class="footer">
+  <div class="container-fluid">
+    <p class="col-md-5 col-lg-5">Shuttle timings last updated on: <b>{{ last_update }}</b></p>
+    <p class="col-md-7 col-lg-7">To report any issues, request changes or additional functionality, go here:  <a href="https://github.com/pskeshu/tifrh-shuttle/issues" target="_blank">https://github.com/pskeshu/tifrh-shuttle/issues</a></p>
+  </div>
+</footer>
 </body>
 </html>
 
