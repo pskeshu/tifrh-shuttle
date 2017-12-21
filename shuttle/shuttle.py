@@ -83,7 +83,7 @@ def fetch_shuttle_schedule():
 
 
 @app.route('/next')
-def main():
+def next():
     fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = \
         fetch_shuttle_schedule()
 
