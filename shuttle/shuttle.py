@@ -6,6 +6,7 @@ from shuttle import schedule
 
 tz = pytz.timezone("Asia/Kolkata")
 app = Flask(__name__)
+app.jinja_env.filters['zip'] = zip
 
 
 def get_fortune():
@@ -81,9 +82,10 @@ def fetch_shuttle_schedule():
     return fretb_indus, indus_fretb, fretb_aparna, aparna_fretb
 
 
-@app.route('/')
+@app.route('/next')
 def main():
-    fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = fetch_shuttle_schedule()
+    fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = \
+        fetch_shuttle_schedule()
 
     time_fretb_IC, id_fretb_IC = next_shuttle(fretb_indus)
     time_fretb_AS, id_fretb_AS = next_shuttle(fretb_aparna)
@@ -125,6 +127,7 @@ def main():
     }
 
     return render_template("home.html",
+                           title="TIFR Hyderabad Shuttle Timings",
                            fretb_indus_info=fretb_indus_info,
                            fretb_aparna_info=fretb_aparna_info,
                            indus_fretb_info=indus_fretb_info,
@@ -134,6 +137,52 @@ def main():
                            )
 
 
+@app.route('/')
 @app.route('/all')
-def all():
-    return "all_shuttle"
+def all_shuttles():
+    fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = \
+        fetch_shuttle_schedule()
+
+    tl_fretb_indus = [smart_timeleft(_) for _ in fretb_indus]
+    tl_indus_fretb = [smart_timeleft(_) for _ in indus_fretb]
+    tl_fretb_aparna = [smart_timeleft(_) for _ in fretb_aparna]
+    tl_aparna_fretb = [smart_timeleft(_) for _ in aparna_fretb]
+
+    minutes_fretb_IC = [int(_/60) for _ in tl_fretb_indus]
+    minutes_fretb_AS = [int(_/60) for _ in tl_fretb_aparna]
+    minutes_IC_fretb = [int(_/60) for _ in tl_indus_fretb]
+    minutes_AS_fretb = [int(_/60) for _ in tl_aparna_fretb]
+
+    fretb_indus_info = {
+        "shuttle_time": fretb_indus,
+        "minutes": minutes_fretb_IC,
+    }
+
+    fretb_aparna_info = {
+        "shuttle_time": fretb_aparna,
+        "minutes": minutes_fretb_AS,
+    }
+
+    indus_fretb_info = {
+        "shuttle_time": indus_fretb,
+        "minutes": minutes_IC_fretb,
+    }
+
+    aparna_fretb_info = {
+        "shuttle_time": aparna_fretb,
+        "minutes": minutes_AS_fretb,
+    }
+
+    return render_template("all.html",
+                           title="All shuttles",
+                           fretb_indus_info=fretb_indus_info,
+                           fretb_aparna_info=fretb_aparna_info,
+                           indus_fretb_info=indus_fretb_info,
+                           aparna_fretb_info=aparna_fretb_info,
+                           fortune=get_fortune(),
+                           last_update=schedule.last_update)
+
+
+@app.route('/pdf')
+def return_pdf():
+    return '<embed src="static/20171116.pdf" width="100%" height="100%" />'
