@@ -185,4 +185,5 @@ def all_shuttles():
 
 @app.route('/pdf')
 def return_pdf():
-    return '<embed src="static/20171116.pdf" width="100%" height="100%" />'
+    return """<title>For the old fashioned ...</title>
+            <embed src="static/20171116.pdf" width="100%" height="100%" />"""
