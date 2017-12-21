@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 {% block body %}
-<html lang="en">
-<head>
-  <title>TIFR Hyderabad Shuttle Timings</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-</head>
+{% include "layout.html" %}
 <body>
-
 <div class="container-fluid">
   <h2> Shuttle Timings </h2>
   <div class="panel-group">
@@ -130,10 +120,7 @@
   <p>{{ fortune }}</p>
 </div>
 
-<div class="container-fluid navbar navbar-default navbar-static-bottom">
-    <span style="float:left;">Shuttle timings last updated on: <b>{{ last_update }}</b></span>
-    <span style="float:right">To report any issues, request changes or additional functionality, go here:  <a href="https://github.com/pskeshu/tifrh-shuttle/issues" target="_blank">https://github.com/pskeshu/tifrh-shuttle/issues</a></span>
-</div>
+{% include "footer.html" %}
 </body>
 </html>
 
