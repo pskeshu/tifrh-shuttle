@@ -13,7 +13,8 @@
       <div id="collapse1" class="panel-collapse collapse">
         <ul class="list-group">
           <li class="list-group-item">
-            <h3>To Indus Crest: </h3>
+            <h3>To Indus Crest in {{ fretb_indus_info["next"][0] }} minutes</h3>
+            <p>The next shuttle to Indus Crest from FReT-B is at <b>{{ fretb_indus_info["next"][1] }}</b> </p>            
             <table class="table table-condensed table-border table-hover">
               <thead>
               <tr>
@@ -38,7 +39,8 @@
           </table>
           </li>
           <li class="list-group-item">
-            <h3>To FReT-B: </h3>
+            <h3>To FReT-B in {{ indus_fretb_info["next"][0] }} minutes</h3>
+            <p>The next shuttle to FReT-B from Indus Crest is at <b>{{ indus_fretb_info["next"][1] }}</b> </p>
             <table class="table table-condensed table-border table-hover">
               <thead>
                 <tr>
@@ -75,32 +77,8 @@
       <div id="collapse2" class="panel-collapse collapse">
         <ul class="list-group">
           <li class="list-group-item">
-            <h3>To Aparna Sarovar: </h3>
-            <table class="table table-condensed table-border table-hover">
-              <thead>
-                <tr>
-                  <th>Shuttle Time</th>
-                  <th>Minutes left</th>
-                  <th>Vehicle</th>
-                  <th>Capacity</th>
-                  <th>Driver</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for shuttle, timeleft in aparna_fretb_info["shuttle_time"]|zip(aparna_fretb_info["minutes"]) %}  
-                <tr>
-                  <td>{{ shuttle }}</td>
-                  <td>{{ timeleft }}</td>
-                  <td>{{ aparna_fretb_info["shuttle_time"][shuttle][0][0] }}</td>
-                  <td>{{ aparna_fretb_info["shuttle_time"][shuttle][0][1] }}</td>
-                  <td>{{ aparna_fretb_info["shuttle_time"][shuttle][0][2] }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </li>
-          <li class="list-group-item">
-            <h3>To FReT-B: </h3>
+            <h3>To Aparna Sarovar in {{ fretb_aparna_info["next"][0] }} minutes</h3>
+            <p>The next shuttle to Aparna Sarovar from FReT-B is at <b>{{ fretb_aparna_info["next"][1] }}</b> </p>
             <table class="table table-condensed table-border table-hover">
               <thead>
                 <tr>
@@ -119,6 +97,32 @@
                   <td>{{ fretb_aparna_info["shuttle_time"][shuttle][0][0] }}</td>
                   <td>{{ fretb_aparna_info["shuttle_time"][shuttle][0][1] }}</td>
                   <td>{{ fretb_aparna_info["shuttle_time"][shuttle][0][2] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </li>
+          <li class="list-group-item">
+            <h3>To FReT-B in {{ aparna_fretb_info["next"][0] }} minutes</h3>
+            <p>The next shuttle to FReT-B from Aparna Sarovar is at <b>{{ aparna_fretb_info["next"][1] }}</b> </p>
+            <table class="table table-condensed table-border table-hover">
+              <thead>
+                <tr>
+                  <th>Shuttle Time</th>
+                  <th>Minutes left</th>
+                  <th>Vehicle</th>
+                  <th>Capacity</th>
+                  <th>Driver</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for shuttle, timeleft in aparna_fretb_info["shuttle_time"]|zip(aparna_fretb_info["minutes"]) %}  
+                <tr>
+                  <td>{{ shuttle }}</td>
+                  <td>{{ timeleft }}</td>
+                  <td>{{ aparna_fretb_info["shuttle_time"][shuttle][0][0] }}</td>
+                  <td>{{ aparna_fretb_info["shuttle_time"][shuttle][0][1] }}</td>
+                  <td>{{ aparna_fretb_info["shuttle_time"][shuttle][0][2] }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
