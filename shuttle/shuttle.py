@@ -41,7 +41,8 @@ def smart_timeleft(time_string, tomorrow=False):
 def next_shuttle(schedule_dict):
     """Based on the dictionary passed to this function,
     this function will return the time remaining for the next shuttle in
-    seconds, and the shuttle index from the dictionary."""
+    minutes, and the shuttle index (timing) from the dictionary,
+    along with the shuttle index info - such as driver name, capacity, etc."""
 
     timings = list(schedule_dict.keys())  # Shuttle timings
 
@@ -56,10 +57,11 @@ def next_shuttle(schedule_dict):
 
     # Shuttle index from the service dictionary
     shuttle = timings[idx]
-    return remaining_time_seconds, shuttle
+    return [int(remaining_time_seconds/60), shuttle, schedule_dict[shuttle]]
 
 
 def fetch_shuttle_schedule():
+    """Get the right schedule dict based on the day."""
     now = datetime.datetime.now(tz)
     day_of_week = now.weekday()
 
@@ -84,47 +86,20 @@ def fetch_shuttle_schedule():
 
 @app.route('/next')
 def next():
+    """Render the /next page which shows the next shuttle."""
     fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = \
         fetch_shuttle_schedule()
 
-    time_fretb_IC, id_fretb_IC = next_shuttle(fretb_indus)
-    time_fretb_AS, id_fretb_AS = next_shuttle(fretb_aparna)
-    time_IC_fretb, id_IC_fretb = next_shuttle(indus_fretb)
-    time_AS_fretb, id_AS_fretb = next_shuttle(aparna_fretb)
+    keys = ["minutes", "shuttle_time", "shuttles"]
 
-    minutes_fretb_IC = int(time_fretb_IC/60)
-    minutes_fretb_AS = int(time_fretb_AS/60)
-    minutes_IC_fretb = int(time_IC_fretb/60)
-    minutes_AS_fretb = int(time_AS_fretb/60)
-
-    shuttles_fretb_IC = fretb_indus[id_fretb_IC]
-    shuttles_fretb_AS = fretb_aparna[id_fretb_AS]
-    shuttles_IC_fretb = indus_fretb[id_IC_fretb]
-    shuttles_AS_fretb = aparna_fretb[id_AS_fretb]
-
-    fretb_indus_info = {
-        "shuttle_time": id_fretb_IC,
-        "minutes": minutes_fretb_IC,
-        "shuttles": shuttles_fretb_IC
-    }
-
-    fretb_aparna_info = {
-        "shuttle_time": id_fretb_AS,
-        "minutes": minutes_fretb_AS,
-        "shuttles": shuttles_fretb_AS
-    }
-
-    indus_fretb_info = {
-        "shuttle_time": id_IC_fretb,
-        "minutes": minutes_IC_fretb,
-        "shuttles": shuttles_IC_fretb
-    }
-
-    aparna_fretb_info = {
-        "shuttle_time": id_AS_fretb,
-        "minutes": minutes_AS_fretb,
-        "shuttles": shuttles_AS_fretb
-    }
+    fretb_indus_info = {key: value for (key, value) in zip(
+        keys, next_shuttle(fretb_indus))}
+    fretb_aparna_info = {key: value for (key, value) in zip(
+        keys, next_shuttle(fretb_aparna))}
+    indus_fretb_info = {key: value for (key, value) in zip(
+        keys, next_shuttle(indus_fretb))}
+    aparna_fretb_info = {key: value for (key, value) in zip(
+        keys, next_shuttle(aparna_fretb))}
 
     return render_template("home.html",
                            title="TIFR Hyderabad Shuttle Timings",
@@ -140,6 +115,8 @@ def next():
 @app.route('/')
 @app.route('/all')
 def all_shuttles():
+    """Renders the template for the landing page that shows all the
+    shuttle timings."""
     fretb_indus, indus_fretb, fretb_aparna, aparna_fretb = \
         fetch_shuttle_schedule()
 
@@ -156,23 +133,26 @@ def all_shuttles():
     fretb_indus_info = {
         "shuttle_time": fretb_indus,
         "minutes": minutes_fretb_IC,
+        "next": next_shuttle(fretb_indus)
     }
 
     fretb_aparna_info = {
         "shuttle_time": fretb_aparna,
         "minutes": minutes_fretb_AS,
+        "next": next_shuttle(fretb_aparna)
     }
 
     indus_fretb_info = {
         "shuttle_time": indus_fretb,
         "minutes": minutes_IC_fretb,
+        "next": next_shuttle(indus_fretb)
     }
 
     aparna_fretb_info = {
         "shuttle_time": aparna_fretb,
         "minutes": minutes_AS_fretb,
+        "next": next_shuttle(aparna_fretb)
     }
-
     return render_template("all.html",
                            title="All shuttles",
                            fretb_indus_info=fretb_indus_info,
