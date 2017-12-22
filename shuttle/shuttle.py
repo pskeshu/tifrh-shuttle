@@ -3,6 +3,10 @@ import datetime
 import subprocess
 import pytz
 from shuttle import schedule
+import os
+import codecs
+import re
+import random
 
 tz = pytz.timezone("Asia/Kolkata")
 app = Flask(__name__)
@@ -14,8 +18,21 @@ def get_fortune():
         message = subprocess.run("fortune", stdout=subprocess.PIPE).stdout
         return message.decode('utf-8')
     except:
-        return "The universe is a pretty big place.\
+        try:
+            return parse_fortune()
+        except:
+            return "The universe is a pretty big place.\
         If it's just us, seems like an awful waste of space. -- Carl Sagan"
+
+
+def parse_fortune():
+    file_ = "fortune/hitchhiker"
+    module_dir = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(module_dir, file_)
+
+    with codecs.open(file_name, "r", encoding='utf-8', errors='ignore') as f:
+        content = f.read().split("%")
+    return random.choice(content)
 
 
 def smart_timeleft(time_string, tomorrow=False):
