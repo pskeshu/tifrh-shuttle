@@ -119,7 +119,7 @@ def next():
         keys, next_shuttle(aparna_fretb))}
 
     return render_template("home.html",
-                           title="TIFR Hyderabad Shuttle Timings",
+                           title="TIFR Hyderabad Shuttle Timings - Next",
                            fretb_indus_info=fretb_indus_info,
                            fretb_aparna_info=fretb_aparna_info,
                            indus_fretb_info=indus_fretb_info,
@@ -171,7 +171,7 @@ def all_shuttles():
         "next": next_shuttle(aparna_fretb)
     }
     return render_template("all.html",
-                           title="All shuttles",
+                           title="TIFR Hyderabad Shuttle Timings",
                            fretb_indus_info=fretb_indus_info,
                            fretb_aparna_info=fretb_aparna_info,
                            indus_fretb_info=indus_fretb_info,
